@@ -22,7 +22,18 @@ class UsersControllers extends Controller
         $user = $this->findByUsername($username);
         return view('users.follows', [
             'user' => $user,
+            'follows' => $user->follows,
         ]);
+    }
+
+    public function followers($username){
+        $user = $this->findByUsername($username);
+
+        return view('users.follows', [
+            'user' =>  $user,
+            'follows' => $user->followers,
+        ]);
+
     }
 
     public function follow($username, Request $request){
@@ -32,6 +43,15 @@ class UsersControllers extends Controller
         $me->follows()->attach($user);
 
         return redirect("/$username")->withSuccess('Users Followed!');
+    }
+
+    public function unfollow($username, Request $request){
+        $user = $this->findByUsername($username);
+        $me = $request->user();
+
+        $me->follows()->detach($user);
+
+        return redirect("/$username")->withSuccess('Users Unfollowed!');
     }
 
     private function findByUsername($username){

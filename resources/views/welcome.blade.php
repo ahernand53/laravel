@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="jumbotron text-center">
-        <h1>Laratter</h1>
+        <h1>Wake up your site</h1>
     </div>
     <div class="row">
         <form action="/messages/create" method="post">
