@@ -6,7 +6,7 @@
         <h1>Wake up your site</h1>
     </div>
     <div class="row">
-        <form action="/messages/create" method="post">
+        <form action="/messages/create" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <input type="text" name="message" class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}" placeholder="Que estas pensando?">
@@ -17,6 +17,7 @@
                         </span>
                     @endforeach
                 @endif
+                <input type="file" class="form-control-file" name="image">
             </div>
         </form>
     </div>

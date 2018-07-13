@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
+use App\PrivateMessage;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -52,6 +54,46 @@ class UsersControllers extends Controller
         $me->follows()->detach($user);
 
         return redirect("/$username")->withSuccess('Users Unfollowed!');
+    }
+
+    public function sendPrivateMessage($username, Request $request){
+
+        $user = $this->findByUsername($username);
+
+        $me = $request->user();
+        $message = $request->input('message');
+
+        $conversation = Conversation::between($me, $user);
+
+        $privateMessage = PrivateMessage::create([
+            'conversation_id' => $conversation->id,
+            'user_id' => $me->id,
+            'message' => $message,
+        ]);
+
+        return redirect('/conversation/' .$conversation->id);
+
+    }
+
+    public function showConversation(Conversation $conversation){
+
+        $conversation->load('users', 'privateMessages');
+        $me = auth()->user();
+
+        $validator = PrivateMessage::validator($me, $conversation);
+
+        if($validator){
+            return view('users.conversation', [
+                'conversation' => $conversation,
+                'user' => auth()->user(),
+            ]);
+        }else {
+            return redirect('/');
+        }
+
+
+
+
     }
 
     private function findByUsername($username){

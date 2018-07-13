@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrivateMessagesTable extends Migration
+class CreateConversationUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePrivateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('private_messages', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('conversation_user', function (Blueprint $table) {
             $table->unsignedInteger('conversation_id');
             $table->unsignedInteger('user_id');
-            $table->string('message');
-            $table->timestamps();
+
+            $table->primary(['conversation_id', 'user_id']);
 
             $table->foreign('conversation_id')->references('id')->on('conversations');
             $table->foreign('user_id')->references('id')->on('users');
@@ -32,6 +31,6 @@ class CreatePrivateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('private_messages');
+        Schema::dropIfExists('conversation_user');
     }
 }
