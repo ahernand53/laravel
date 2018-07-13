@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'PagesController@home');
-
+Route::get('/messages', 'MessagesController@search');
 Route::get('/messages/{message}', 'MessagesController@show');
 
 

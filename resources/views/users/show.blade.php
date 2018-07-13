@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="text-center" style="margin-bottom: 10px">
-        <img src="{{ $user->avatar }}" class="rounded img-thumbnail" alt="...">
+        <img src="{{ $user->avatar }}" class="rounded-circle img-thumbnail" alt="...">
         <h1>{{ $user->name }}</h1>
-        <a class="btn btn-link" href="/{{ $user->username }}/follows">
-            Following <span class="badge badge-primary">{{ $user->follows->count() }}</span>
+        <a class="btn btn-primary" href="/{{ $user->username }}/follows">
+            Following <span class="badge badge-light">{{ $user->follows->count() }}</span>
         </a>
-        <a class="btn btn-link" href="/{{ $user->username }}/followers">
-            Followers <span class="badge badge-primary">{{ $user->followers->count() }}</span>
+        <a class="btn btn-primary" href="/{{ $user->username }}/followers">
+            Followers <span class="badge badge-light">{{ $user->followers->count() }}</span>
         </a>
         @if(Auth::check())
             @if(Gate::allows('dms', $user))

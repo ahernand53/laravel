@@ -11,7 +11,9 @@ class UsersControllers extends Controller
 {
 
     public function show($username){
-        $user = User::where('username', $username)->first();
+
+
+        $user = $this->findByUsername($username);
         $messages = $user->messages()->paginate(10);
 
         return view('users.show', [
@@ -97,7 +99,7 @@ class UsersControllers extends Controller
     }
 
     private function findByUsername($username){
-        return User::where('username', $username)->first();
+        return User::where('username', $username)->firstOrFail();
     }
 
 }
