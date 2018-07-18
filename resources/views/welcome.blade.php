@@ -2,8 +2,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="jumbotron text-center">
-        <h1>Wake up your site</h1>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="https://lorempixel.com/600/338/?50931=First slide" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="https://lorempixel.com/600/338/?50932=Second slide" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="https://lorempixel.com/600/338/?5092=Third slide" alt="Third slide">
+            </div>
+        </div>
     </div>
     <div class="row">
         <form action="/messages/create" method="post" enctype="multipart/form-data">
