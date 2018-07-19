@@ -32,6 +32,10 @@ class CreatePrivateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('private_messages');
+        Schema::table('private_messages', function (Blueprint $table){
+            $table->dropForeign('private_messages_conversation_id_foreign');
+            $table->dropForeign('private_messages_user_id_foreign');
+            $table->dropIfExists('private_messages');
+        });
     }
 }

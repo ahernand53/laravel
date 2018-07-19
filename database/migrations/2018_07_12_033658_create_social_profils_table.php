@@ -31,6 +31,10 @@ class CreateSocialProfilsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_profile');
+        Schema::table('social_profile', function (Blueprint $table){
+            $table->dropForeign('social_profile_user_id_foreign');
+            $table->dropIfExists('social_profile');
+        });
+
     }
 }

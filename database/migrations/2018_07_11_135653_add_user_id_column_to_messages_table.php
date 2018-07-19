@@ -29,7 +29,6 @@ class AddUserIdColumnToMessagesTable extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
             $table->dropForeign('messages_user_id_foreign');
-
             $table->dropColumn('user_id');
         });
     }

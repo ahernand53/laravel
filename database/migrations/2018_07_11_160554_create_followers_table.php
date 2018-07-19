@@ -16,11 +16,11 @@ class CreateFollowersTable extends Migration
         Schema::create('followers', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('followed_id');
-
             $table->primary(['user_id', 'followed_id']);
+            $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('followed_id')->references('id')->on('users');
-            $table->timestamps();
 
         });
     }
@@ -32,6 +32,10 @@ class CreateFollowersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('followers');
+        Schema::table('followers', function (Blueprint $table){
+            $table->dropForeign('followers_user_id_foreign');
+            $table->dropForeign('followers_followed_id_foreign');
+            $table->dropIfExists('followers');
+        });
     }
 }

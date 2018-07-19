@@ -31,6 +31,10 @@ class CreateConversationUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conversation_user');
+        Schema::table('conversation_user', function (Blueprint $table){
+            $table->dropForeign('conversation_user_conversation_id_foreign');
+            $table->dropForeign('conversation_user_user_id_foreign');
+            $table->dropIfExists('conversation_user');
+        });
     }
 }
