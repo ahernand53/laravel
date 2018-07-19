@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conversation;
+use App\Notifications\UserFollow;
 use App\PrivateMessage;
 use App\User;
 use Illuminate\Http\Request;
@@ -42,9 +43,12 @@ class UsersControllers extends Controller
 
     public function follow($username, Request $request){
         $user = $this->findByUsername($username);
+
         $me = $request->user();
 
         $me->follows()->attach($user);
+
+        $user->notify(new UserFollow($me));
 
         return redirect("/$username")->withSuccess('Users Followed!');
     }

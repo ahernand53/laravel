@@ -43,7 +43,7 @@ class User extends Authenticatable
         return $this->follows->contains($user);
     }
 
-    public function socialProfiles(){
+    public function socialProfile(){
         return $this->hasMany(SocialProfile::class);
     }
 }
